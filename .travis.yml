@@ -1,0 +1,38 @@
+sudo: false
+language: php
+
+php:
+  - 7.2
+  - 7.3
+
+addons:
+  apt:
+    packages:
+      - parallel
+
+env:
+  global:
+    - CODACY_PROJECT_TOKEN=a3ba86a8a97846e9a8bca68975f22c66
+
+cache:
+  directories:
+  - $HOME/.composer/cache
+
+install:
+  - >
+    composer install
+
+script:
+  - >
+    echo;
+    echo "Running php lint";
+    find . -name \*.php ! -path "./.build/*" | parallel --gnu php -d display_errors=stderr -l {} > /dev/null \;
+  - >
+    echo;
+    echo "Running unit tests";
+    vendor/bin/phpunit --coverage-clover build/coverage.xml
+
+
+after_script:
+  - >
+    vendor/bin/codacycoverage clover build/coverage.xml

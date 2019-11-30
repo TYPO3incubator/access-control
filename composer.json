@@ -1,0 +1,48 @@
+{
+    "name": "typo3/access-control",
+    "type": "library",
+    "description": "TYPO3 Access Control Component.",
+    "keywords": [
+        "typo3",
+        "security",
+        "abac",
+        "pbac",
+        "policy"
+    ],
+    "homepage": "https://typo3.org",
+    "license": ["GPL-2.0-or-later"],
+    "authors": [{
+        "name": "Artus Kolanowski",
+        "role": "Developer"
+    }],
+    "support": {
+      "general": "https://typo3.org/support/",
+      "issues": "https://github.com/typo3/access-control/issues"
+    },
+    "require": {
+        "psr/event-dispatcher": "^1.0",
+        "webmozart/assert": "^1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^8.1",
+        "codacy/coverage": "^1.4",
+        "slevomat/coding-standard": "^4.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "TYPO3\\AccessControl\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "TYPO3\\AccessControl\\Tests\\": "tests"
+        }
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0-dev"
+        }
+    }
+}
