@@ -153,7 +153,7 @@ With configuration fields similar to a *policy set* a **policy** is a set of *ru
 | Field | Description |
 | --- | --- |
 | `description` | Optional description of the policy. |
-| `target` | Optional [boolean expression](https://symfony.com/doc/current/components/expression_language/syntax.html) indicating the *resource*, *action*, *subject* and *environment attributes* to which the *policy* is applied. Default is `true`. |
+| `target` | Optional boolean expression indicating the *resource*, *action*, *subject* and *environment attributes* to which the *policy* is applied. Default is `true`. |
 | `alogrithm` | Optional name of a *combining algorithm* to compute the final decision according to the results returned by its child rules, either `denyOverride`, `permitOverride`, `firstApplicable` or `highestPriority`. Default is `firstApplicable`. |
 | `priority` | Optional number indicating the weight of the *policy* when its decision conﬂicts with other policies under the `highestPriority` algorithm. Default is `1`. |
 | `obligation` | Optional actions to take in case a particular conclusive decision (*permit* or *deny*) is reached. |
@@ -163,9 +163,9 @@ Unlike a *policy set* or a *policy*, a **rule** does not contain any leaf nodes:
 
 | Field | Description |
 | --- | --- |
-| `target` | Optional [boolean expression](https://symfony.com/doc/current/components/expression_language/syntax.html) indicating the *resource*, *action*, *subject* and *environment attributes* to which the *policy* is applied. Default is `true`. |
+| `target` | Optional boolean expression indicating the *resource*, *action*, *subject* and *environment attributes* to which the *policy* is applied. Default is `true`. |
 | `effect` | Optional returned decision when the rule is applied, either `permit` or `deny`. Default is `deny`. |
-| `condition` | Optional [boolean expression](https://symfony.com/doc/current/components/expression_language/syntax.html) that specifies the condition for applying the rule. In comparison to a `target`, a `condition` is typically more complex. If either the `target` or the `condition` is not satisfied, a *not applicable* would be taken as the result instead of the specified `effect`. Default is `true`. |
+| `condition` | Optional boolean expression that specifies the condition for applying the rule. In comparison to a `target`, a `condition` is typically more complex. If either the `target` or the `condition` is not satisfied, a *not applicable* would be taken as the result instead of the specified `effect`. Default is `true`. |
 | `priority` | Optional number indicating the weight of the *rule* when its decision conﬂicts with other rules under the `highestPriority` algorithm. Default is `1`. |
 | `obligation` | Optional actions to take in case a particular conclusive decision (*permit* or *deny*) is reached. |
 
