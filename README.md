@@ -9,7 +9,6 @@
 Use composer to install this extension in your project:
 
 ```bash
-composer config repositories.access-control git https://github.com/typo3-initiatives/access-control
 composer require typo3/access-control
 ```
 
