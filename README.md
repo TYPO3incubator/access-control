@@ -255,7 +255,7 @@ To provide additional data for an attribute before an access request the event `
 ```php
 namespace App\Security\AccessControl\EventListener;
 
-use TYPO3\CMS\Security\AccessControl\Event\AttributeRetrivalEvent;
+use TYPO3\AccessControl\Event\AttributeRetrivalEvent;
 
 class AttributeRetrivalListener
 {
@@ -271,7 +271,7 @@ To provide principals for the subject attribute the separate event `\TYPO3\Acces
 ```php
 namespace App\Security\AccessControl\EventListener;
 
-use TYPO3\CMS\Security\AccessControl\Event\SubjectRetrivalEvent;
+use TYPO3\AccessControl\Event\SubjectRetrivalEvent;
 
 class SubjectRetrivalListener
 {
