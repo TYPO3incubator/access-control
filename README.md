@@ -132,7 +132,7 @@ $factory = new PolicyFactory();
 $parser = new Parser();
 
 $policy = $factory->build(
-  Yaml::parseFile('/path/to/policies.yaml'),
+  $parser->parseFile('/path/to/policies.yaml'),
   $resolver
 );
 ```
