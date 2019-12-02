@@ -179,7 +179,7 @@ Policies may conflict and produce different *decisions* for the same request. To
 
 Please note that for all of these *combining algorithms*, *not applicable* is returned if not any of the children is applicable.
 
-### Authorisation
+## Authorisation
 
 To perform an access request the *policy decision point* has to be used. It evaluates all policies and returns a *decision* either of *permit*, *deny* or *not applicable*:
 
@@ -280,7 +280,7 @@ class SubjectRetrievalListener
 }
 ```
 
-### Design Principals
+## Design Principals
 
 Whenever possible the authorization logic should be part of a policy. Thus its auditable and changeable. For reasons of the performance or complexity it might be not possible. Then it's recommended to extend the expression language with a custom function.
 
