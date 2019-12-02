@@ -1,4 +1,4 @@
-# TYPO3 Access control
+# TYPO3 Access Control
 
 [![Build](https://img.shields.io/travis/com/TYPO3-Initiatives/security/master.svg)](https://travis-ci.com/typo3-initiatives/access-control)
 [![Coverage](https://img.shields.io/codacy/coverage/a3ba86a8a97846e9a8bca68975f22c66/master.svg)](https://app.codacy.com/project/typo3-initiatives/access-control/dashboard)
