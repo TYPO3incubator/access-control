@@ -10,9 +10,9 @@
         "policy"
     ],
     "homepage": "https://typo3.org",
-    "license": ["GPL-2.0-or-later"],
+    "license": ["MIT"],
     "authors": [{
-        "name": "Artus Kolanowski",
+        "name": "Jawan A. Kolanowski",
         "role": "Developer"
     }],
     "support": {
