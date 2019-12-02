@@ -1,8 +1,8 @@
 # TYPO3 Access Control
 
-[![Build](https://img.shields.io/travis/com/TYPO3-Initiatives/security/master.svg)](https://travis-ci.com/typo3-initiatives/access-control)
-[![Coverage](https://img.shields.io/codacy/coverage/a3ba86a8a97846e9a8bca68975f22c66/master.svg)](https://app.codacy.com/project/typo3-initiatives/access-control/dashboard)
-[![Code Quality](https://img.shields.io/codacy/grade/a3ba86a8a97846e9a8bca68975f22c66/master.svg)](https://app.codacy.com/project/typo3-initiatives/access-control/dashboard)
+[![Build](https://img.shields.io/travis/com/typo3-initiatives/access-control/master.svg)](https://travis-ci.com/typo3-initiatives/access-control)
+[![Coverage](https://img.shields.io/codacy/coverage/931d4f93db8e41d39a3174d5ab84c7ac/master.svg)](https://app.codacy.com/project/typo3-initiatives/access-control/dashboard)
+[![Code Quality](https://img.shields.io/codacy/grade/931d4f93db8e41d39a3174d5ab84c7ac/master.svg)](https://app.codacy.com/project/typo3-initiatives/access-control/dashboard)
 
 ## Installation
 
