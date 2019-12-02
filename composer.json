@@ -20,6 +20,7 @@
       "issues": "https://github.com/typo3/access-control/issues"
     },
     "require": {
+        "php": "^7.0",
         "psr/event-dispatcher": "^1.0",
         "webmozart/assert": "^1.0"
     },
