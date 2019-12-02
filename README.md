@@ -250,32 +250,32 @@ class PolicyDecisionListener
 }
 ```
 
-To provide additional data for an attribute before an access request the event `\TYPO3\AccessControl\Event\AttributeRetrivalEvent` can be used:
+To provide additional data for an attribute before an access request the event `\TYPO3\AccessControl\Event\AttributeRetrievalEvent` can be used:
 
 ```php
 namespace App\Security\AccessControl\EventListener;
 
-use TYPO3\AccessControl\Event\AttributeRetrivalEvent;
+use TYPO3\AccessControl\Event\AttributeRetrievalEvent;
 
-class AttributeRetrivalListener
+class AttributeRetrievalListener
 {
-    public function __invoke(AttributeRetrivalEvent $event)
+    public function __invoke(AttributeRetrievalEvent $event)
     {
         // ...
     }
 }
 ```
 
-To provide principals for the subject attribute the separate event `\TYPO3\AccessControl\Event\SubjectRetrivalEvent` has to be used:
+To provide principals for the subject attribute the separate event `\TYPO3\AccessControl\Event\SubjectRetrievalEvent` has to be used:
 
 ```php
 namespace App\Security\AccessControl\EventListener;
 
-use TYPO3\AccessControl\Event\SubjectRetrivalEvent;
+use TYPO3\AccessControl\Event\SubjectRetrievalEvent;
 
-class SubjectRetrivalListener
+class SubjectRetrievalListener
 {
-    public function __invoke(SubjectRetrivalEvent $event)
+    public function __invoke(SubjectRetrievalEvent $event)
     {
         // ...
     }

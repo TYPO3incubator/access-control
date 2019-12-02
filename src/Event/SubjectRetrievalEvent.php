@@ -22,7 +22,7 @@ use TYPO3\AccessControl\Attribute\PrincipalAttribute;
 /**
  * @api
  */
-final class SubjectRetrivalEvent
+final class SubjectRetrievalEvent
 {
     /**
      * @var AttributeContextInterface

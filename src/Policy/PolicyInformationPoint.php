@@ -20,8 +20,8 @@ use Psr\Cache\CacheItemPoolInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\AccessControl\Attribute\AttributeContextInterface;
 use TYPO3\AccessControl\Attribute\SubjectAttribute;
-use TYPO3\AccessControl\Event\AttributeRetrivalEvent;
-use TYPO3\AccessControl\Event\SubjectRetrivalEvent;
+use TYPO3\AccessControl\Event\AttributeRetrievalEvent;
+use TYPO3\AccessControl\Event\SubjectRetrievalEvent;
 
 /**
  * @api
@@ -56,7 +56,7 @@ final class PolicyInformationPoint
      * Obtains the given attributes.
      *
      * @param array $attributes Attributes to retrive
-     * @param AttributeContextInterface $context Context of the retrival
+     * @param AttributeContextInterface $context Context of the Retrieval
      * @return array Retrived attributes
      */
     public function obtain(array $attributes, ?AttributeContextInterface $context = null): array
@@ -65,7 +65,7 @@ final class PolicyInformationPoint
             return $key !== self::SUBJECT_ATTRIBUTE;
         }, ARRAY_FILTER_USE_KEY);
 
-        $subjectEvent = new SubjectRetrivalEvent($context);
+        $subjectEvent = new SubjectRetrievalEvent($context);
 
         $this->eventDispatcher->dispatch($subjectEvent);
 
@@ -73,7 +73,7 @@ final class PolicyInformationPoint
 
         foreach ($attributes as $attribute) {
             $this->eventDispatcher->dispatch(
-                new AttributeRetrivalEvent($attribute, $subjectAttribute, $context)
+                new AttributeRetrievalEvent($attribute, $subjectAttribute, $context)
             );
         }
 

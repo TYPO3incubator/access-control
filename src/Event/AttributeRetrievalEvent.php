@@ -23,7 +23,7 @@ use TYPO3\AccessControl\Attribute\SubjectAttribute;
 /**
  * @api
  */
-final class AttributeRetrivalEvent
+final class AttributeRetrievalEvent
 {
     /**
      * @var AttributeContextInterface
