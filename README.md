@@ -22,7 +22,7 @@ A policy is *applicable* if the access request satisfies the target. If so, its 
 
 The *rule* is the fundamental unit that can generate a conclusive *decision*. The *condition* of a *rule* is a more complex boolean expression that refines the applicability beyond the predicates specified by its *target*, and is optional. If a request satisfies both the *target* and *condition* of a *rule*, then the *rule* is applicable to the request and its *eﬀect* is returned as its *decision*. Otherwise, *not applicable* is returned.
 
-Each *rule*, *policy* or *policy set* has an unique identifier and *obligations* which is used to specify the operations which should be performed after granting or denying an access request.
+Each *rule*, *policy* or *policy set* has an unique identifier and *obligations* which represent the operations to perform after granting or denying an access request.
 
 ## Attributes
 
@@ -34,7 +34,7 @@ A request typically contains the following attributes:
 | `subject` | Represents the entity requesting to perform an operation upon the *resource*. It is provided indirectly through the given context of the policy decision point and can not modifed or set by the access request directly.  See also `TYPO3\AccessControl\Attribute\SubjectAttribute`. |
 | `action` | The operations to be performed on the *resource*. Like the *resource* it is also provided by the access request. See also `TYPO3\AccessControl\Attribute\ActionAttribute`. |
 
-To define your own attributes, you must derive from one of the corresponding classes:
+To define your own attributes, you must derive them from one of the corresponding classes:
 
 ```php
 namespace App\Security\AccessControl\Attribute;
@@ -52,7 +52,7 @@ class RoleAttribute extends PrincipalAttribute
 
 ## Expressions
 
-Expressions are used to decied whether a policy is applicable to a request or not. Therefore a so called expression resolver has to be implemented. For example, by using the expression language component:
+Expressions are used to decied whether a policy is applicable to a request or not. Therefore a so called expression resolver has to be implemented. For example, by using the [expression language component](https://symfony.com/doc/current/components/expression_language):
 
 ```php
 namespace App\Security\AccessControl\Expression;
@@ -282,7 +282,7 @@ class SubjectRetrievalListener
 
 ## Design Principals
 
-Whenever possible the authorization logic should be part of a policy. Thus its auditable and changeable. For reasons of the performance or complexity it might be not possible. Then it's recommended to extend the expression language with a custom function.
+Whenever possible the authorization logic should be part of a policy. Thus it's auditable and changeable. For reasons of performance or complexity it might be not possible. Then it's recommended to extend the expression language with a custom function if possible.
 
 ## Development
 
