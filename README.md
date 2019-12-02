@@ -101,24 +101,23 @@ Policies have to be defined declaratively. For example, by using YAML and the po
 
 ```yaml
 ---
-Policy:
-  description: 'Root policy set.'
-  algorithm: highestPriority
-  policies:
-    Admin:
-      target: 'hasAuthority("role", "ADMIN")'
-      description: 'Administrator policy'
-      priority: 100
-      rules:
-        -
-          effect: permit
-    Default:
-      description: 'Deny everything per default.'
-      rules:
-        -
-          obligation:
-            deny:
-              Feedback: ['Access denied.']
+description: 'Root policy set.'
+algorithm: highestPriority
+policies:
+  Admin:
+    target: 'hasAuthority("role", "ADMIN")'
+    description: 'Administrator policy'
+    priority: 100
+    rules:
+      -
+        effect: permit
+  Default:
+    description: 'Deny everything per default.'
+    rules:
+      -
+        obligation:
+          deny:
+            Feedback: ['Access denied.']
 ```
 
 ```php
