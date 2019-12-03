@@ -105,7 +105,7 @@ description: 'Root policy set.'
 algorithm: highestPriority
 policies:
   Admin:
-    target: 'hasAuthority("role", "ADMIN")'
+    target: 'hasAuthority("typo3:security:principal:admin")'
     description: 'Administrator policy'
     priority: 100
     rules:
@@ -269,13 +269,15 @@ To provide principals for the subject attribute the separate event `\TYPO3\Acces
 ```php
 namespace App\Security\AccessControl\EventListener;
 
+use TYPO3\AccessControl\Attribute\PrincipalAttribute;
 use TYPO3\AccessControl\Event\SubjectRetrievalEvent;
 
 class SubjectRetrievalListener
 {
     public function __invoke(SubjectRetrievalEvent $event)
     {
-        // ...
+        // Adds administrator principal
+        $event->addPrincipal(new PrincipalAttribute('administrator'));
     }
 }
 ```
