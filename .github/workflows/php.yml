@@ -22,6 +22,7 @@ jobs:
         with:
           php-version: ${{ matrix.php-versions }}
           extension-csv: mbstring
+          coverage: xdebug
 
       - name: Validate composer.json and composer.lock
         run: composer validate
