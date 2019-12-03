@@ -1,6 +1,6 @@
 # TYPO3 Access Control
 
-[![Build](https://img.shields.io/travis/com/typo3-initiatives/access-control/master.svg)](https://travis-ci.com/typo3-initiatives/access-control)
+[![Build](https://img.shields.io/github/workflow/status/TYPO3/access-control/PHP%20Composer)](https://github.com/TYPO3/access-control/actions)
 [![Coverage](https://img.shields.io/codacy/coverage/931d4f93db8e41d39a3174d5ab84c7ac/master.svg)](https://app.codacy.com/project/typo3-initiatives/access-control/dashboard)
 [![Code Quality](https://img.shields.io/codacy/grade/931d4f93db8e41d39a3174d5ab84c7ac/master.svg)](https://app.codacy.com/project/typo3-initiatives/access-control/dashboard)
 
