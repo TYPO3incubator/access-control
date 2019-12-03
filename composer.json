@@ -40,5 +40,9 @@
         }
     },
     "minimum-stability": "dev",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "scripts": {
+        "test": "vendor/bin/phpunit --coverage-clover build/coverage.xml",
+        "report": "vendor/bin/codacycoverage clover build/coverage.xml"
+    }
 }
