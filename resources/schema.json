@@ -1,0 +1,157 @@
+{
+    "title": "Policy Language",
+    "definitions": {
+        "policy-set": {
+            "title": "Policy Set",
+            "properties": {
+                "target": {
+                    "type": "string",
+                    "description": "Determines whether this policy is applicable to a request by setting constraints on attributes using simple boolean expressions. If nothing is set it evaluates to `true`."
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Describes the policy set."
+                },
+                "algorithm": {
+                    "$ref": "#/definitions/algorithm"
+                },
+                "priority": {
+                    "type": "integer",
+                    "description": "Provides a numeric value indicating the weight of the policy set when its decision conflicts with other policy sets under the `highestPriority` algorithm."
+                },
+                "obligation": {
+                    "$ref": "#/definitions/obligation"
+                },
+                "policies": {
+                    "type": "object",
+                    "minProperties": 1,
+                    "additionalProperties": {
+                        "oneOf": [
+                            {
+                                "$ref": "#/definitions/policy-set"
+                            },
+                            {
+                                "$ref": "#/definitions/policy"
+                            }
+                        ]
+                    }
+                }
+            },
+            "additionalProperties": false,
+            "required": [
+                "policies"
+            ]
+        },
+        "policy": {
+            "title": "Policy",
+            "properties": {
+                "target": {
+                    "type": "string",
+                    "description": "Determines whether this policy is applicable to a request by setting constraints on attributes using simple boolean expressions. If nothing is set it evaluates to `true`."
+                },
+                "description": {
+                    "type": "string",
+                    "description": "Describes the policy."
+                },
+                "algorithm": {
+                    "$ref": "#/definitions/algorithm"
+                },
+                "priority": {
+                    "type": "integer",
+                    "description": "Provides a numeric value indicating the weight of the policy set when its decision conflicts with other policy sets under the `highestPriority` algorithm."
+                },
+                "obligation": {
+                    "$ref": "#/definitions/obligation"
+                },
+                "rules": {
+                    "type": "array",
+                    "minItems": 1,
+                    "items": {
+                        "$ref": "#/definitions/rule"
+                    },
+                    "additionalItems": false
+                }
+            },
+            "additionalProperties": false
+        },
+        "rule": {
+            "title": "Policy Rule",
+            "properties": {
+                "target": {
+                    "type": "string",
+                    "description": "Determines whether this policy is applicable to a request by setting constraints on attributes using simple boolean expressions. If nothing is set it evaluates to `true`."
+                },
+                "condition": {
+                    "type": "string",
+                    "description": "Determines whether this policy is applicable to a request by setting constraints on attributes using simple boolean expressions. In comparison to a target, a condition is typically more complex and often includes functions. If nothing is set it evaluates to `true`."
+                },
+                "effect": {
+                    "type": "string",
+                    "enum": [
+                        "deny",
+                        "permit"
+                    ],
+                    "default": "deny",
+                    "description": "Specifies the conclusive decision."
+                },
+                "priority": {
+                    "type": "integer",
+                    "description": "Provides a numeric value indicating the weight of the policy set when its decision conflicts with other policy sets under the `highestPriority` algorithm."
+                },
+                "obligation": {
+                    "type": "object",
+                    "$ref": "#/definitions/obligation"
+                }
+            },
+            "additionalProperties": false
+        },
+        "obligation": {
+            "type": "object",
+            "patternProperties": {
+                "^(deny|permit)$": {
+                    "type": "object",
+                    "additionalProperties": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        },
+                        "additionalItems": false
+                    }
+                }
+            },
+            "description": "An operation that should be performed by the policy enforcement point in conjunction with the enforcement of an authorization decision. It can be triggered on either permit or deny.",
+            "additionalProperties": false
+        },
+        "algorithm": {
+            "type": "string",
+            "oneOf": [
+                {
+                    "const": "firstApplicable",
+                    "description": "Returns the first decision that evaluates to either of permit or deny."
+                },
+                {
+                    "const": "permitOverrides",
+                    "description": "Returns permit if any decision evaluates to permit and returns deny if all decisions evaluate to deny."
+                },
+                {
+                    "const": "denyOverrides",
+                    "description": "Returns deny if any decision evaluates to deny and returns permit if all decisions evaluate to permit."
+                },
+                {
+                    "const": "highestPriority",
+                    "description": "Returns the highest priority decision that evaluates to either of permit or deny. If there are multiple equally highest priority decisions that conflict, then deny overrides algorithm would be applied among those highest priority decisions."
+                }
+            ],
+            "default": "firstApplicable",
+            "description": "Specifies the name of a decision-combining algorithm to compute the final decision according to the results returned by its child policies."
+        }
+    },
+    "oneOf": [
+        {
+            "$ref": "#/definitions/policy-set"
+        },
+        {
+            "$ref": "#/definitions/policy"
+        }
+    ]
+}

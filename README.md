@@ -97,7 +97,7 @@ class ExpressionLanguageResolver implements ResolverInterface
 
 ## Policies
 
-Policies have to be defined declaratively. For example, by using YAML and the policy factory:
+Policies can be defined declaratively. For example, by using YAML and the policy factory:
 
 ```yaml
 ---
@@ -178,6 +178,8 @@ Policies may conflict and produce different *decisions* for the same request. To
 | `highestPriority` | Returns the highest priority *decision* that evaluates to either of *permit* or *deny*. If there are multiple equally highest priority *decisions* that conflict, then *deny overrides* algorithm would be applied among those highest priority *decisions*. |
 
 Please note that for all of these *combining algorithms*, *not applicable* is returned if not any of the children is applicable.
+
+There is also formal description of the schema for the policy language which can be found [here](resources/schema.json).
 
 ## Authorisation
 
