@@ -13,34 +13,19 @@ namespace TYPO3\AccessControl\Attribute;
 /**
  * @api
  */
-interface QualifiedAttributeInterface
+interface QualifiedAttributeInterface extends AttributeInterface
 {
     /**
-     * Gets the local name
+     * Gets the primary identifier
      *
      * @return string
      */
     public function getIdentifier(): string;
 
     /**
-     * Gets the qualified name
+     * Gets the qualified names
      *
      * @return string
      */
-    public function getName(): string;
-
-
-    /**
-     * Gets the primary namespace
-     *
-     * @return string
-     */
-    public function getNamespace(): string;
-
-    /**
-     * Gets all namespaces
-     *
-     * @return string
-     */
-    public function getNamespaces(): array;
+    public function getNames(): array;
 }

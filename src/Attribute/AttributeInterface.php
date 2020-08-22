@@ -10,17 +10,9 @@ namespace TYPO3\AccessControl\Attribute;
  * file that was distributed with this source code.
  */
 
-
 /**
  * @api
  */
-class PrincipalAttribute extends QualifiedAttribute
+interface AttributeInterface
 {
-    /**
-     * @inheritdoc
-     */
-    public function __construct(string $identifier)
-    {
-        parent::__construct($identifier);
-    }
 }

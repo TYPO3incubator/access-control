@@ -26,76 +26,49 @@ class QualifiedAttributeTest extends TestCase
         $subject = $this->getMockForAbstractClass(
             QualifiedAttribute::class,
             [
-                'bar',
+                'foo:bar:baz',
+                'foo:bar',
+                'bar:baz',
             ],
             'FooAttribute'
         );
 
-        $this->assertEquals('bar', $subject->identifier);
+        $this->assertEquals('foo:bar:baz', $subject->identifier);
     }
 
     /**
      * @test
      */
-    public function instanceProvidesNamespaceProperty()
+    public function instanceProvidesNamesProperty()
     {
         $subject = $this->getMockForAbstractClass(
             QualifiedAttribute::class,
             [
-                'bar',
-            ],
-            'BazAttribute'
-        );
-
-        $this->assertEquals('baz', $subject->namespace);
-    }
-
-    /**
-     * @test
-     */
-    public function instanceProvidesNameProperty()
-    {
-        $subject = $this->getMockForAbstractClass(
-            QualifiedAttribute::class,
-            [
-                'baz',
+                'foo:bar:baz',
+                'foo:bar',
             ],
             'FooAttribute'
         );
 
-        $this->assertEquals('foo:baz', $subject->name);
+        $this->assertEquals([ 'foo:bar' ], $subject->names);
     }
 
     /**
      * @test
      */
-    public function getNameReturnsName()
+    public function getNamesReturnsNames()
     {
         $subject = $this->getMockForAbstractClass(
             QualifiedAttribute::class,
             [
-                'qux',
+                'foo:bar:baz',
+                'foo:bar',
+                'bar:baz',
             ],
             'FooAttribute'
         );
 
-        $this->assertEquals($subject->name, $subject->getName());
-    }
-
-    /**
-     * @test
-     */
-    public function getNamespaceReturnsNamespace()
-    {
-        $subject = $this->getMockForAbstractClass(
-            QualifiedAttribute::class,
-            [
-                'foo',
-            ],
-            'BarAttribute'
-        );
-
-        $this->assertEquals($subject->namespace, $subject->getNamespace());
+        $this->assertEquals($subject->names, $subject->getNames());
     }
 
     /**
@@ -106,9 +79,9 @@ class QualifiedAttributeTest extends TestCase
         $subject = $this->getMockForAbstractClass(
             QualifiedAttribute::class,
             [
-                'bar',
+                'foo:bar:baz'
             ],
-            'QuxAttribute'
+            'FooAttribute'
         );
 
         $this->assertEquals($subject->identifier, $subject->getIdentifier());
@@ -117,16 +90,16 @@ class QualifiedAttributeTest extends TestCase
     /**
      * @test
      */
-    public function toStringReturnsName()
+    public function toStringReturnsIdentifier()
     {
         $subject = $this->getMockForAbstractClass(
             QualifiedAttribute::class,
             [
-                'baz',
+                'foo:bar:baz'
             ],
-            'BarAttribute'
+            'FooAttribute'
         );
 
-        $this->assertEquals($subject->name, (string) $subject);
+        $this->assertEquals($subject->identifier, (string) $subject);
     }
 }

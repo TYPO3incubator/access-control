@@ -10,13 +10,14 @@ namespace TYPO3\AccessControl\Event;
  * file that was distributed with this source code.
  */
 
+use Psr\EventDispatcher\StoppableEventInterface;
 use TYPO3\AccessControl\Attribute\AttributeContextInterface;
-use TYPO3\AccessControl\Attribute\PrincipalAttribute;
+use TYPO3\AccessControl\Attribute\AttributeInterface;
 
 /**
  * @api
  */
-final class SubjectRetrievalEvent
+final class SubjectRetrievalEvent implements StoppableEventInterface
 {
     /**
      * @var AttributeContextInterface
@@ -24,13 +25,13 @@ final class SubjectRetrievalEvent
     private $context;
 
     /**
-     * @var array
+     * @var AttributeInterface
      */
-    private $principals;
+    private $subject;
 
     public function __construct(?AttributeContextInterface $context = null)
     {
-        $this->principals = [];
+        $this->subject = null;
         $this->context = $context;
     }
 
@@ -39,13 +40,18 @@ final class SubjectRetrievalEvent
         return $this->context;
     }
 
-    public function addPrincipal(PrincipalAttribute $principal)
+    public function setSubject(AttributeInterface $subject)
     {
-        $this->principals[] = $principal;
+        $this->subject = $subject;
     }
 
-    public function getPrincipals(): array
+    public function getSubject(): AttributeInterface
     {
-        return $this->principals;
+        return $this->subject;
+    }
+
+    public function isPropagationStopped() : bool
+    {
+        return $this->subject !== null;
     }
 }

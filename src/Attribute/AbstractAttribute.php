@@ -13,7 +13,7 @@ namespace TYPO3\AccessControl\Attribute;
 /**
  * @api
  */
-abstract class AbstractAttribute
+abstract class AbstractAttribute implements AttributeInterface
 {
     /**
      * @var array

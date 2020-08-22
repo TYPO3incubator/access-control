@@ -13,7 +13,7 @@ namespace TYPO3\AccessControl\Policy;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\AccessControl\Attribute\AttributeContextInterface;
-use TYPO3\AccessControl\Attribute\SubjectAttribute;
+use TYPO3\AccessControl\Attribute\AttribtueInterface;
 use TYPO3\AccessControl\Event\AttributeRetrievalEvent;
 use TYPO3\AccessControl\Event\SubjectRetrievalEvent;
 
@@ -63,15 +63,13 @@ final class PolicyInformationPoint
 
         $this->eventDispatcher->dispatch($subjectEvent);
 
-        $subjectAttribute = new SubjectAttribute(...$subjectEvent->getPrincipals());
-
         foreach ($attributes as $attribute) {
             $this->eventDispatcher->dispatch(
                 new AttributeRetrievalEvent($attribute, $subjectAttribute, $context)
             );
         }
 
-        $attributes[self::SUBJECT_ATTRIBUTE] = $subjectAttribute;
+        $attributes[self::SUBJECT_ATTRIBUTE] = $subjectEvent->getSubject();
 
         return $attributes;
     }

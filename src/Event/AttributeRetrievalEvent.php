@@ -10,9 +10,8 @@ namespace TYPO3\AccessControl\Event;
  * file that was distributed with this source code.
  */
 
-use TYPO3\AccessControl\Attribute\AbstractAttribute;
+use TYPO3\AccessControl\Attribute\AttributeInterface;
 use TYPO3\AccessControl\Attribute\AttributeContextInterface;
-use TYPO3\AccessControl\Attribute\SubjectAttribute;
 
 /**
  * @api
@@ -25,26 +24,26 @@ final class AttributeRetrievalEvent
     private $context;
 
     /**
-     * @var AbstractAttribute
+     * @var AttributeInterface
      */
     private $attribute;
 
     /**
-     * @var SubjectAttribute
+     * @var AttributeInterface
      */
-    private $subjectAttribute;
+    private $subject;
 
     public function __construct(
         AbstractAttribute $attribute,
-        SubjectAttribute $subjectAttribute,
+        AttributeInterface $subject,
         ?AttributeContextInterface $context = null
     ) {
         $this->attribute = $attribute;
-        $this->subjectAttribute = $subjectAttribute;
+        $this->subject = $subject;
         $this->context = $context;
     }
 
-    public function getAttribute(): AbstractAttribute
+    public function getAttribute(): AttributeInterface
     {
         return $this->attribute;
     }
@@ -54,8 +53,8 @@ final class AttributeRetrievalEvent
         return $this->context;
     }
 
-    public function getSubject(): SubjectAttribute
+    public function getSubject(): AttributeInterface
     {
-        return $this->subjectAttribute;
+        return $this->subject;
     }
 }
