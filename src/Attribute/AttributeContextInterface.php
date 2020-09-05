@@ -30,18 +30,4 @@ interface AttributeContextInterface
      * @return bool Wether it exists or not
      */
     public function hasEntry(string $key): bool;
-
-    /**
-     * Returns all context entry keys.
-     *
-     * @return array Entry keys
-     */
-    public function getKeys(): array;
-
-    /**
-     * Returns all context attributes.
-     *
-     * @return array Context attributes
-     */
-    public function getAttributes(): array;
 }
