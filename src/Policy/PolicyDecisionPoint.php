@@ -69,7 +69,7 @@ final class PolicyDecisionPoint
     {
         $attributes = $this->policyInformationPoint->obtain($attributes, $this->context);
 
-        $decision = $this->policy->evaluate($attributes, $this->context);
+        $decision = $this->policy->evaluate($attributes);
 
         $this->eventDispatcher->dispatch(new PolicyDecisionEvent($decision, $attributes, $this->context));
 

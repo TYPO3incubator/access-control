@@ -10,9 +10,11 @@ namespace TYPO3\AccessControl\Policy;
  * file that was distributed with this source code.
  */
 
+use InvalidArgumentException;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\AccessControl\Attribute\AttributeContextInterface;
+use TYPO3\AccessControl\Attribute\AttributeInterface;
 use TYPO3\AccessControl\Attribute\AttributeResolver;
 
 /**
@@ -20,15 +22,17 @@ use TYPO3\AccessControl\Attribute\AttributeResolver;
  */
 final class PolicyInformationPoint
 {
+    private const CONTEXT_ATTRIBUTE_KEY = 'context';
+
     /**
      * @var CacheItemPoolInterface
      */
-    protected $cache;
+    private $cache;
 
     /**
      * @var EventDispatcherInterface
      */
-    protected $dispatcher;
+    private $dispatcher;
 
     /**
      * Creates a policy information point.
@@ -51,10 +55,18 @@ final class PolicyInformationPoint
      */
     public function obtain(array $attributes, ?AttributeContextInterface $context = null): array
     {
+        if (array_key_exists(self::CONTEXT_ATTRIBUTE_KEY, $attributes)) {
+            throw new InvalidArgumentException(sprintf('Attribute key %s is reserved for the attribute context.', self::CONTEXT_ATTRIBUTE_KEY));
+        }
+
         $resolvers = [];
 
-        foreach ($attributes as $attribute) {
-            $resolvers[] = new AttributeResolver($attribute, $context, $this->dispatcher);
+        if ($context instanceof AttributeInterface) {
+            $resolver[self::CONTEXT_ATTRIBUTE_KEY] = new AttributeResolver($context, $context, $this->dispatcher);
+        }
+
+        foreach ($attributes as $key => $attribute) {
+            $resolvers[$key] = new AttributeResolver($attribute, $context, $this->dispatcher);
         }
 
         return $resolvers;

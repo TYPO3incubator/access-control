@@ -37,4 +37,11 @@ interface AttributeContextInterface
      * @return array Entry keys
      */
     public function getKeys(): array;
+
+    /**
+     * Returns all context attributes.
+     *
+     * @return array Context attributes
+     */
+    public function getAttributes(): array;
 }
