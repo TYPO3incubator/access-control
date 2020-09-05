@@ -14,8 +14,9 @@ use PHPUnit\Framework\TestCase;
 use Prophecy\Argument;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\AccessControl\Attribute\AttributeResolver;
-use TYPO3\AccessControl\Attribute\AttributeInterface;
-use TYPO3\AccessControl\Tests\Unit\Fixture\Attribute;
+use TYPO3\AccessControl\Attribute\AbstractAttribute;
+use TYPO3\AccessControl\Attribute\AttributeContextInterface;
+use TYPO3\AccessControl\Attribute\AttributeNotFoundException;
 
 /**
  * Test case
@@ -25,7 +26,7 @@ class AttributeResolverTest extends TestCase
 
     public function setUp(): void
     {
-        $this->attributeProphecy = $this->prophesize(Attribute::class);
+        $this->contextProphecy = $this->prophesize(AttributeContextInterface::class);
         $this->dispatcherProphecy = $this->prophesize(EventDispatcherInterface::class);
     }
 
@@ -34,15 +35,19 @@ class AttributeResolverTest extends TestCase
      */
     public function instancePassesUnknownMethodCallsToAttribute()
     {
-        $this->attributeProphecy->bar()->shouldBeCalledTimes(1);
-        $this->attributeProphecy->baz(['foo', 'bar'])->shouldBeCalledTimes(1);
-        $this->attributeProphecy->qux('foo', 'bar')->shouldBeCalledTimes(1);
+        $attribute = $this->getMockForAbstractClass(
+            AbstractAttribute::class,
+            [
+                'foo:bar:baz',
+                'foo:bar',
+                'bar:baz',
+            ],
+            'FooAttribute'
+        );
+        $subject = new AttributeResolver($attribute, null, $this->dispatcherProphecy->reveal());
 
-        $subject = new AttributeResolver($this->attributeProphecy->reveal(), null, $this->dispatcherProphecy->reveal());
-
-        $subject->bar();
-        $subject->baz(['foo', 'bar']);
-        $subject->qux('foo', 'bar');
+        $this->assertEquals('foo:bar:baz', $subject->getIdentifier());
+        $this->assertEquals(['foo:bar', 'bar:baz'], $subject->getNames());
     }
 
     /**
@@ -50,23 +55,19 @@ class AttributeResolverTest extends TestCase
      */
     public function instancePassesUnknownPropertyReadsToAttribute()
     {
-        $this->attributeProphecy->foo = 123;
+        $attribute = $this->getMockForAbstractClass(
+            AbstractAttribute::class,
+            [
+                'foo:bar:baz',
+                'foo:bar',
+                'bar:baz',
+            ],
+            'FooAttribute'
+        );
+        $subject = new AttributeResolver($attribute, null, $this->dispatcherProphecy->reveal());
 
-        $subject = new AttributeResolver($this->attributeProphecy->reveal(), null, $this->dispatcherProphecy->reveal());
-
-        $this->assertEquals(123, $subject->foo);
-    }
-
-    /**
-     * @test
-     */
-    public function instancePassesUnknownPropertyWritesToAttribute()
-    {
-        $subject = new AttributeResolver($this->attributeProphecy->reveal(), null, $this->dispatcherProphecy->reveal());
-
-        $subject->foo = 123;
-
-        $this->assertEquals(123, $this->attributeProphecy->foo);
+        $this->assertEquals('foo:bar:baz', $subject->identifier);
+        $this->assertEquals(['foo:bar', 'bar:baz'], $subject->names);
     }
 
     /**
@@ -74,16 +75,57 @@ class AttributeResolverTest extends TestCase
      */
     public function instanceDispatchEventWhenGetIsCalled()
     {
-        $target = $this->prophesize(Attribute::class)->reveal();
+        $context = $this->contextProphecy->reveal();
 
-        $target->foo = 345;
+        $attribute = $this->getMockForAbstractClass(
+            AbstractAttribute::class,
+            [
+                'bar:baz',
+                'bar:baz',
+            ],
+            'BarAttribute'
+        );
+
+        $target = $this->getMockForAbstractClass(
+            AbstractAttribute::class,
+            [
+                'foo:bar',
+                'bar:baz',
+            ],
+            'FooAttribute'
+        );
 
         $this->dispatcherProphecy->dispatch(Argument::any())->will(function(array $arguments) use ($target) {
             $arguments[0]->setTarget($target);
-        })->shouldBeCalledTimes(1);
+        })->shouldBeCalledTimes(3);
 
-        $subject = new AttributeResolver($this->attributeProphecy->reveal(), null, $this->dispatcherProphecy->reveal());
+        $subject = new AttributeResolver($attribute, $context, $this->dispatcherProphecy->reveal());
 
-        $this->assertEquals(345, $subject->get('foo:bar')->foo);
+        $this->assertEquals('foo:bar', $subject->get('foo:bar')->identifier);
+        $this->assertEquals(['bar:baz'], $subject->get('foo:bar')->names);
+        $this->assertEquals($context, $subject->get('foo:bar')->getContext());
+    }
+
+    /**
+     * @test
+     */
+    public function instanceThrowsWhenGetFailed()
+    {
+        $attribute = $this->getMockForAbstractClass(
+            AbstractAttribute::class,
+            [
+                'bar:baz',
+                'bar:baz',
+            ],
+            'BarAttribute'
+        );
+
+        $this->dispatcherProphecy->dispatch(Argument::any())->shouldBeCalledTimes(1);
+
+        $this->expectException(AttributeNotFoundException::class);
+
+        $subject = new AttributeResolver($attribute, null, $this->dispatcherProphecy->reveal());
+
+        $subject->get('foo:bar');
     }
 }

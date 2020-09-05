@@ -11,8 +11,8 @@ namespace TYPO3\AccessControl\Attribute;
  */
 
 use Psr\EventDispatcher\EventDispatcherInterface;
-use TYPO3\AccessControl\Event\AttributeRequestEvent;
-use TYPO3\AccessControl\Exception\UnknownAttributeException;
+use TYPO3\AccessControl\Attribute\AttributeRequestEvent;
+use TYPO3\AccessControl\Attribute\UnknownAttributeException;
 
 /**
  * @internal
@@ -56,10 +56,36 @@ final class AttributeResolver implements AttributeInterface {
         $this->dispatcher->dispatch($event);
 
         if ($event->getTarget() === null) {
-            throw new UnknownAttributeException('Unkown attribute ' . $uri . ' requested.');
+            throw new AttributeNotFoundException($uri, $this->context, 'Unkown attribute ' . $uri . ' requested.');
         }
 
         return new AttributeResolver($event->getTarget(), $this->context, $this->dispatcher);
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getIdentifier(): string
+    {
+        return $this->attribute->getIdentifier();
+    }
+
+    /**
+     * @inheritdoc
+     */
+    public function getNames(): array
+    {
+        return $this->attribute->getNames();
+    }
+
+    /**
+     * Return the context of this resolver
+     * 
+     * @return AttributeContextInterface|null
+     */
+    public function getContext(): ?AttributeContextInterface
+    {
+        return $this->context;
     }
 
     /**
@@ -69,7 +95,8 @@ final class AttributeResolver implements AttributeInterface {
      * @param array $arguments Arguments to pass
      * @return mixed
      */
-    public function __call(string $method, array $arguments) {
+    public function __call(string $method, array $arguments)
+    {
         return $this->attribute->$method(...$arguments);
     }
 
@@ -79,19 +106,9 @@ final class AttributeResolver implements AttributeInterface {
      * @param string $property Name of the property
      * @return mixed
      */
-    public function __get($property) {
+    public function __get($property)
+    {
         return $this->attribute->$property;
-    }
-
-    /**
-     * Pass through property set
-     * 
-     * @param string $property Name of the property
-     * @param mixed $value Value to set
-     * @return mixed
-     */
-    public function __set($property, $value) {
-        $this->attribute->$property = $value;
     }
 
     /**

@@ -11,12 +11,12 @@ namespace TYPO3\AccessControl\Tests\Unit\Attribute;
  */
 
 use PHPUnit\Framework\TestCase;
-use TYPO3\AccessControl\Attribute\QualifiedAttribute;
+use TYPO3\AccessControl\Attribute\AbstractAttribute;
 
 /**
  * Test case
  */
-class QualifiedAttributeTest extends TestCase
+class AbstractAttributeTest extends TestCase
 {
     /**
      * @test
@@ -24,7 +24,7 @@ class QualifiedAttributeTest extends TestCase
     public function instanceProvidesIdentifier()
     {
         $subject = $this->getMockForAbstractClass(
-            QualifiedAttribute::class,
+            AbstractAttribute::class,
             [
                 'foo:bar:baz',
                 'foo:bar',
@@ -42,7 +42,7 @@ class QualifiedAttributeTest extends TestCase
     public function instanceProvidesNamesProperty()
     {
         $subject = $this->getMockForAbstractClass(
-            QualifiedAttribute::class,
+            AbstractAttribute::class,
             [
                 'foo:bar:baz',
                 'foo:bar',
@@ -59,7 +59,7 @@ class QualifiedAttributeTest extends TestCase
     public function getNamesReturnsNames()
     {
         $subject = $this->getMockForAbstractClass(
-            QualifiedAttribute::class,
+            AbstractAttribute::class,
             [
                 'foo:bar:baz',
                 'foo:bar',
@@ -77,7 +77,7 @@ class QualifiedAttributeTest extends TestCase
     public function getIdentifierReturnsIdentifier()
     {
         $subject = $this->getMockForAbstractClass(
-            QualifiedAttribute::class,
+            AbstractAttribute::class,
             [
                 'foo:bar:baz'
             ],
@@ -93,7 +93,7 @@ class QualifiedAttributeTest extends TestCase
     public function toStringReturnsIdentifier()
     {
         $subject = $this->getMockForAbstractClass(
-            QualifiedAttribute::class,
+            AbstractAttribute::class,
             [
                 'foo:bar:baz'
             ],

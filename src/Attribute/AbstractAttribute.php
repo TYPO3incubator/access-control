@@ -13,7 +13,7 @@ namespace TYPO3\AccessControl\Attribute;
 /**
  * @api
  */
-abstract class QualifiedAttribute implements QualifiedAttributeInterface
+abstract class AbstractAttribute implements AttributeInterface
 {
     /**
      * @var string
@@ -26,7 +26,7 @@ abstract class QualifiedAttribute implements QualifiedAttributeInterface
     private $names;
 
     /**
-     * Creates a qualified attribute
+     * Creates an attribute
      *
      * @param string $identifer The primary identifier
      * @param string $names The qualified names

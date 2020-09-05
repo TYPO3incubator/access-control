@@ -15,4 +15,17 @@ namespace TYPO3\AccessControl\Attribute;
  */
 interface AttributeInterface
 {
+    /**
+     * Gets the primary identifier
+     *
+     * @return string
+     */
+    public function getIdentifier(): string;
+
+    /**
+     * Gets the qualified names
+     *
+     * @return string
+     */
+    public function getNames(): array;
 }
