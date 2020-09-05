@@ -13,7 +13,8 @@ namespace TYPO3\AccessControl\Policy;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\AccessControl\Attribute\AttributeContextInterface;
-use TYPO3\AccessControl\Attribute\AttribtueInterface;
+use TYPO3\AccessControl\Attribute\AttributeInterface;
+use TYPO3\AccessControl\Attribute\AttributeResolver;
 use TYPO3\AccessControl\Event\AttributeRetrievalEvent;
 use TYPO3\AccessControl\Event\SubjectRetrievalEvent;
 
@@ -22,8 +23,6 @@ use TYPO3\AccessControl\Event\SubjectRetrievalEvent;
  */
 final class PolicyInformationPoint
 {
-    const SUBJECT_ATTRIBUTE = 'subject';
-
     /**
      * @var CacheItemPoolInterface
      */
@@ -32,7 +31,7 @@ final class PolicyInformationPoint
     /**
      * @var EventDispatcherInterface
      */
-    protected $eventDispatcher;
+    protected $dispatcher;
 
     /**
      * Creates a policy information point.
@@ -40,9 +39,9 @@ final class PolicyInformationPoint
      * @param EventDispatcherInterface $eventDispatcher Event dispatcher to use
      * @param CacheItemPoolInterface $cache Cache to use
      */
-    public function __construct(EventDispatcherInterface $eventDispatcher, CacheItemPoolInterface $cache = null)
+    public function __construct(EventDispatcherInterface $dispatcher, CacheItemPoolInterface $cache = null)
     {
-        $this->eventDispatcher = $eventDispatcher;
+        $this->dispatcher = $dispatcher;
         $this->cache = $cache;
     }
 
@@ -55,22 +54,12 @@ final class PolicyInformationPoint
      */
     public function obtain(array $attributes, ?AttributeContextInterface $context = null): array
     {
-        $attributes = array_filter($attributes, static function ($key) {
-            return $key !== self::SUBJECT_ATTRIBUTE;
-        }, ARRAY_FILTER_USE_KEY);
-
-        $subjectEvent = new SubjectRetrievalEvent($context);
-
-        $this->eventDispatcher->dispatch($subjectEvent);
+        $resolvers = [];
 
         foreach ($attributes as $attribute) {
-            $this->eventDispatcher->dispatch(
-                new AttributeRetrievalEvent($attribute, $subjectAttribute, $context)
-            );
+            $resolvers[] = new AttributeResolver($attribute, $context, $this->dispatcher);
         }
 
-        $attributes[self::SUBJECT_ATTRIBUTE] = $subjectEvent->getSubject();
-
-        return $attributes;
+        return $resolvers;
     }
 }

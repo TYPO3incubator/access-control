@@ -16,7 +16,7 @@ use TYPO3\AccessControl\Attribute\AttributeContextInterface;
 /**
  * @api
  */
-final class AttributeRetrievalEvent
+final class AttributeRequestEvent
 {
     /**
      * @var AttributeContextInterface
@@ -29,18 +29,23 @@ final class AttributeRetrievalEvent
     private $attribute;
 
     /**
+     * @var string
+     */
+    private $uri;
+
+    /**
      * @var AttributeInterface
      */
-    private $subject;
+    private $target = null;
 
     public function __construct(
-        AbstractAttribute $attribute,
-        AttributeInterface $subject,
-        ?AttributeContextInterface $context = null
+        AttributeInterface $attribute,
+        ?AttributeContextInterface $context,
+        string $uri
     ) {
         $this->attribute = $attribute;
-        $this->subject = $subject;
         $this->context = $context;
+        $this->uri = $uri;
     }
 
     public function getAttribute(): AttributeInterface
@@ -48,13 +53,21 @@ final class AttributeRetrievalEvent
         return $this->attribute;
     }
 
+    public function getUri(): string
+    {
+        return $this->uri;
+    }
+
     public function getContext(): ?AttributeContextInterface
     {
         return $this->context;
     }
 
-    public function getSubject(): AttributeInterface
-    {
-        return $this->subject;
+    public function getTarget(): ?AttributeInterface{
+        return $this->target;
+    }
+
+    public function setTarget(AttributeInterface $attribute): void {
+        $this->target = $attribute;
     }
 }

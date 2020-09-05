@@ -10,13 +10,21 @@ namespace TYPO3\AccessControl\Attribute;
  * file that was distributed with this source code.
  */
 
-use TYPO3\AccessControl\Utility\AttributeUtility;
-
 /**
  * @api
  */
-abstract class QualifiedAttribute extends AbstractAttribute implements QualifiedAttributeInterface
+abstract class QualifiedAttribute implements QualifiedAttributeInterface
 {
+    /**
+     * @var string
+     */
+    private $identifier;
+
+    /**
+     * @var array
+     */
+    private $names;
+
     /**
      * Creates a qualified attribute
      *
@@ -25,8 +33,12 @@ abstract class QualifiedAttribute extends AbstractAttribute implements Qualified
      */
     public function __construct(string $identifier, ?string ...$names)
     {
-        $this->meta['identifier'] = $identifier;
-        $this->meta['names'] = $names;
+        $this->identifier = $identifier;
+        $this->names = $names;
+    }
+
+    public function __get(string $property) {
+        return $this->$property;
     }
 
     /**
@@ -34,7 +46,7 @@ abstract class QualifiedAttribute extends AbstractAttribute implements Qualified
      */
     public function getIdentifier(): string
     {
-        return $this->meta['identifier'];
+        return $this->identifier;
     }
 
     /**
@@ -42,9 +54,12 @@ abstract class QualifiedAttribute extends AbstractAttribute implements Qualified
      */
     public function getNames(): array
     {
-        return $this->meta['names'];
+        return $this->names;
     }
 
+    /**
+     * @inheritdoc
+     */
     public function __toString()
     {
         return $this->getIdentifier();

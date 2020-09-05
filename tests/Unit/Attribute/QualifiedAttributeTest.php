@@ -21,7 +21,7 @@ class QualifiedAttributeTest extends TestCase
     /**
      * @test
      */
-    public function instanceProvidesIdentifierProperty()
+    public function instanceProvidesIdentifier()
     {
         $subject = $this->getMockForAbstractClass(
             QualifiedAttribute::class,
@@ -33,7 +33,7 @@ class QualifiedAttributeTest extends TestCase
             'FooAttribute'
         );
 
-        $this->assertEquals('foo:bar:baz', $subject->identifier);
+        $this->assertEquals('foo:bar:baz', $subject->getIdentifier());
     }
 
     /**

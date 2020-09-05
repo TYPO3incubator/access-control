@@ -12,8 +12,8 @@ namespace TYPO3\AccessControl\Policy;
 
 use ArrayAccess;
 use IteratorAggregate;
+use TYPO3\AccessControl\Exception\NotSupportedMethodException;
 use TYPO3\AccessControl\Policy\Evaluation\EvaluableInterface;
-use TYPO3\AccessControl\Policy\Exception\NotSupportedMethodException;
 use TYPO3\AccessControl\Policy\Expression\ResolverInterface;
 use Webmozart\Assert\Assert;
 

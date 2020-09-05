@@ -12,8 +12,8 @@ namespace TYPO3\AccessControl\Tests\Unit\Policy;
 
 use InvalidArgumentException;
 use PHPUnit\Framework\TestCase;
+use TYPO3\AccessControl\Exception\NotSupportedMethodException;
 use TYPO3\AccessControl\Policy\Evaluation\EvaluatorInterface;
-use TYPO3\AccessControl\Policy\Exception\NotSupportedMethodException;
 use TYPO3\AccessControl\Policy\Expression\ResolverInterface;
 use TYPO3\AccessControl\Policy\Policy;
 use TYPO3\AccessControl\Policy\PolicyDecision;

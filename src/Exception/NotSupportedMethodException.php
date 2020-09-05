@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace TYPO3\AccessControl\Policy\Exception;
+namespace TYPO3\AccessControl\Exception;
 
 /*
  * This file is part of the TYPO3 project.
