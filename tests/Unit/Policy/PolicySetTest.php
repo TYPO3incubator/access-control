@@ -27,7 +27,7 @@ use TYPO3\AccessControl\Policy\PolicySet;
 class PolicySetTest extends TestCase
 {
     /**
-     * @var Resolver
+     * @var ResolverInterface
      */
     protected $resolverStub;
 
