@@ -26,7 +26,7 @@ final class AttributeRequestEvent
     /**
      * @var AttributeInterface
      */
-    private $attribute;
+    private $source;
 
     /**
      * @var string
@@ -39,16 +39,16 @@ final class AttributeRequestEvent
     private $target = null;
 
     public function __construct(
-        AttributeInterface $attribute,
+        AttributeInterface $source,
         ?AttributeContextInterface $context,
         string $uri
     ) {
-        $this->attribute = $attribute;
+        $this->source = $source;
         $this->context = $context;
         $this->uri = $uri;
     }
 
-    public function getAttribute(): AttributeInterface
+    public function getSource(): AttributeInterface
     {
         return $this->attribute;
     }
