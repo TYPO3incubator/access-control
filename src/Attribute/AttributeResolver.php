@@ -12,7 +12,6 @@ namespace TYPO3\AccessControl\Attribute;
 
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\AccessControl\Attribute\AttributeRequestEvent;
-use TYPO3\AccessControl\Attribute\UnknownAttributeException;
 
 /**
  * @internal
@@ -35,7 +34,7 @@ final class AttributeResolver implements AttributeInterface {
     private $dispatcher;
 
     public function __construct(
-        AttributeInterface $attribute, 
+        AttributeInterface $attribute,
         ?AttributeContextInterface $context,
         EventDispatcherInterface $dispatcher
     ) {
@@ -46,12 +45,13 @@ final class AttributeResolver implements AttributeInterface {
 
     /**
      * Resolve an attribute
-     * 
+     *
      * @param string $uri URI to resolve
      * @return AttributeInterface
      */
-    public function get(string $uri): AttributeInterface {
-        $event = new AttributeRequestEvent($this->attribute, $this->context , $uri);
+    public function get(string $uri): AttributeInterface
+    {
+        $event = new AttributeRequestEvent($this->attribute, $this->context, $uri);
 
         $this->dispatcher->dispatch($event);
 
@@ -80,7 +80,7 @@ final class AttributeResolver implements AttributeInterface {
 
     /**
      * Return the context of this resolver
-     * 
+     *
      * @return AttributeContextInterface|null
      */
     public function getContext(): ?AttributeContextInterface
@@ -90,7 +90,7 @@ final class AttributeResolver implements AttributeInterface {
 
     /**
      * Pass through method call
-     * 
+     *
      * @param string $method Name of the method to call
      * @param array $arguments Arguments to pass
      * @return mixed
@@ -102,7 +102,7 @@ final class AttributeResolver implements AttributeInterface {
 
     /**
      * Pass through property get
-     * 
+     *
      * @param string $property Name of the property
      * @return mixed
      */
@@ -116,6 +116,6 @@ final class AttributeResolver implements AttributeInterface {
      */
     public function __toString()
     {
-        return (string)$this->attribute;
+        return (string) $this->attribute;
     }
 }

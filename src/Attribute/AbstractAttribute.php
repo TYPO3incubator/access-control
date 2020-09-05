@@ -37,7 +37,8 @@ abstract class AbstractAttribute implements AttributeInterface
         $this->names = $names;
     }
 
-    public function __get(string $property) {
+    public function __get(string $property)
+    {
         return $this->$property;
     }
 

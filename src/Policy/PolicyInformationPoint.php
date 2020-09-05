@@ -13,10 +13,7 @@ namespace TYPO3\AccessControl\Policy;
 use Psr\Cache\CacheItemPoolInterface;
 use Psr\EventDispatcher\EventDispatcherInterface;
 use TYPO3\AccessControl\Attribute\AttributeContextInterface;
-use TYPO3\AccessControl\Attribute\AttributeInterface;
 use TYPO3\AccessControl\Attribute\AttributeResolver;
-use TYPO3\AccessControl\Event\AttributeRetrievalEvent;
-use TYPO3\AccessControl\Event\SubjectRetrievalEvent;
 
 /**
  * @api

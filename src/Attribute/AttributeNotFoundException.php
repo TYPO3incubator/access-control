@@ -28,10 +28,10 @@ class AttributeNotFoundException extends Exception
     private $context;
 
     public function __construct(
-        string $identifier, 
-        AttributeContextInterface $context = null, 
-        string $message = null, 
-        int $code = 0, 
+        string $identifier,
+        AttributeContextInterface $context = null,
+        string $message = null,
+        int $code = 0,
         Exception $previous = null
     ) {
         parent::__construct($message, $code, $previous);
@@ -42,7 +42,7 @@ class AttributeNotFoundException extends Exception
 
     /**
      * Return the attribute identifier
-     * 
+     *
      * @return string
      */
     public function getIdentifier(): string
@@ -52,7 +52,7 @@ class AttributeNotFoundException extends Exception
 
     /**
      * Return the attribute context
-     * 
+     *
      * @return AttributeContextInterface|null
      */
     public function getContext(): ?AttributeContextInterface

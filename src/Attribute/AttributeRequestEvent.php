@@ -10,8 +10,8 @@ namespace TYPO3\AccessControl\Attribute;
  * file that was distributed with this source code.
  */
 
-use TYPO3\AccessControl\Attribute\AttributeInterface;
 use TYPO3\AccessControl\Attribute\AttributeContextInterface;
+use TYPO3\AccessControl\Attribute\AttributeInterface;
 
 /**
  * @api
@@ -63,11 +63,13 @@ final class AttributeRequestEvent
         return $this->context;
     }
 
-    public function getTarget(): ?AttributeInterface{
+    public function getTarget(): ?AttributeInterface
+    {
         return $this->target;
     }
 
-    public function setTarget(AttributeInterface $attribute): void {
+    public function setTarget(AttributeInterface $attribute): void
+    {
         $this->target = $attribute;
     }
 }
